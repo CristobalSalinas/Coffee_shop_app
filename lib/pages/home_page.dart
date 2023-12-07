@@ -1,3 +1,4 @@
+import 'package:coffee_shop_app/components/bottom_navbar.dart';
 import 'package:coffee_shop_app/const.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class _HomePageState extends State<HomePage> {
       body: const Center(
         child: Text("Home PAge"),
       ),
+      bottomNavigationBar: const BottomNavbar(),
     );
   }
 }
