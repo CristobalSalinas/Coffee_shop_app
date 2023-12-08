@@ -16,6 +16,10 @@ class _CartPageState extends State<CartPage> {
     Provider.of<CoffeeShop>(context, listen: false).remoteItemFromCart(coffee);
   }
 
+  void payCoffees() {
+    print("Paga mierda!!");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<CoffeeShop>(
@@ -42,6 +46,26 @@ class _CartPageState extends State<CartPage> {
                       icon: const Icon(Icons.delete),
                     );
                   },
+                ),
+              ),
+              GestureDetector(
+                onTap: payCoffees,
+                child: Container(
+                  padding: EdgeInsets.all(25),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.brown,
+                  ),
+                  child: const Center(
+                    child: Text(
+                      "Pagar",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
                 ),
               )
             ],
