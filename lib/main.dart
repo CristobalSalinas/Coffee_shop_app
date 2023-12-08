@@ -1,5 +1,6 @@
 import 'package:coffee_shop_app/models/coffee_shop.dart';
 import 'package:coffee_shop_app/pages/home_page.dart';
+import 'package:coffee_shop_app/pages/shop_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,10 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const HomePage(),
+        routes: {
+          '/': (context) => const HomePage(),
+          '/shop': (context) => const ShopPage(),
+        },
       ),
     );
   }
