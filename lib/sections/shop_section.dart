@@ -1,6 +1,7 @@
 import 'package:coffee_shop_app/components/coffee_tile.dart';
 import 'package:coffee_shop_app/models/coffee.dart';
 import 'package:coffee_shop_app/models/coffee_shop.dart';
+import 'package:coffee_shop_app/pages/add_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,14 @@ class _ShopSectionState extends State<ShopSection> {
       context: context,
       builder: (context) => const AlertDialog(
         title: Text("Agregado correctamente"),
+      ),
+    );
+  }
+
+  void goToCoffeeSelectionDetails(BuildContext context, Coffee coffee) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => AddPage(coffee),
       ),
     );
   }
@@ -44,7 +53,10 @@ class _ShopSectionState extends State<ShopSection> {
                     Coffee eachCoffee = value.coffeShop[index];
                     return CoffeeTile(
                       coffee: eachCoffee,
-                      onPressed: () => addToCart(eachCoffee),
+                      onPressed: () => goToCoffeeSelectionDetails(
+                        context,
+                        eachCoffee,
+                      ), //addToCart(eachCoffee),
                       icon: const Icon(Icons.add),
                     );
                   },
