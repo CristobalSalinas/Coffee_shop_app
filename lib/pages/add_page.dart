@@ -1,4 +1,6 @@
 import 'package:coffee_shop_app/components/quantity_selector.dart';
+import 'package:coffee_shop_app/components/size_selector.dart';
+import 'package:coffee_shop_app/const.dart';
 import 'package:coffee_shop_app/models/coffee.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +14,7 @@ class AddPage extends StatefulWidget {
 
 class _AddPageState extends State<AddPage> {
   int quantity = 1;
+  CoffeeSize size = CoffeeSize.small;
 
   void goBackToCart(BuildContext context) {
     Navigator.pop(context);
@@ -33,13 +36,19 @@ class _AddPageState extends State<AddPage> {
     });
   }
 
+  void changeCoffeeSize(CoffeeSize sizeSelected) {
+    setState(() {
+      size = sizeSelected;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[350],
       appBar: AppBar(
         leading: GestureDetector(
-          child: Icon(Icons.arrow_back_ios),
+          child: const Icon(Icons.arrow_back_ios),
           onTap: () => goBackToCart(context),
         ),
         backgroundColor: Colors.transparent,
@@ -69,6 +78,23 @@ class _AddPageState extends State<AddPage> {
                 quantity,
                 addQuantity: addQuantity,
                 substractQuantity: substractQuantity,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                "T A M A Ñ O",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey[600],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizeSelector(
+                size: size,
+                changeCoffeeSize: changeCoffeeSize,
               ),
             ],
           ),

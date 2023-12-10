@@ -1,3 +1,4 @@
+import "package:coffee_shop_app/const.dart";
 import "package:flutter/material.dart";
 
 import "coffee.dart";
@@ -8,21 +9,25 @@ class CoffeeShop extends ChangeNotifier {
       name: 'Cafe Negro',
       price: '2.500',
       imagePath: "lib/images/cafe1.png",
+      size: CoffeeSize.small,
     ),
     Coffee(
       name: 'Latte',
       price: '3.100',
       imagePath: "lib/images/cafe2.png",
+      size: CoffeeSize.small,
     ),
     Coffee(
       name: 'Expresso',
       price: '2.600',
       imagePath: "lib/images/cafe3.png",
+      size: CoffeeSize.small,
     ),
     Coffee(
       name: 'Cafe Helado',
       price: '3000',
       imagePath: "lib/images/cafe4.png",
+      size: CoffeeSize.small,
     ),
   ];
 

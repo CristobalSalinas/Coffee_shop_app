@@ -17,7 +17,7 @@ class QuantitySelector extends StatelessWidget {
           onTap: substractQuantity,
           child: const QuantityButton(
             icon: Icon(
-              Icons.add,
+              Icons.remove,
               size: 40,
             ),
           ),
