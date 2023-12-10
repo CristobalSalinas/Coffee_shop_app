@@ -38,6 +38,8 @@ class CoffeeShop extends ChangeNotifier {
 
   void addItemToCart(Coffee coffee) {
     _userCart.add(coffee);
+    print(
+        "Aca supuestamente se agrego un item, dejame ver ${_userCart.length}");
     notifyListeners();
   }
 
