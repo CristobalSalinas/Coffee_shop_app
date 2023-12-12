@@ -8,24 +8,28 @@ class CoffeeShop extends ChangeNotifier {
     Coffee(
       name: 'Cafe Negro',
       price: '2.500',
+      priceList: [2500, 2700, 3000],
       imagePath: "lib/images/cafe1.png",
       size: CoffeeSize.small,
     ),
     Coffee(
       name: 'Latte',
       price: '3.100',
+      priceList: [3100, 3200, 3500],
       imagePath: "lib/images/cafe2.png",
       size: CoffeeSize.small,
     ),
     Coffee(
       name: 'Expresso',
       price: '2.600',
+      priceList: [2600, 2700, 3000],
       imagePath: "lib/images/cafe3.png",
       size: CoffeeSize.small,
     ),
     Coffee(
       name: 'Cafe Helado',
       price: '3000',
+      priceList: [3000, 3200, 3500],
       imagePath: "lib/images/cafe4.png",
       size: CoffeeSize.small,
     ),

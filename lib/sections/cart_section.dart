@@ -41,6 +41,7 @@ class _CartSectionState extends State<CartSection> {
                   itemBuilder: (context, index) {
                     Coffee coffee = value.userCart[index];
                     return CoffeeTile(
+                      showPriceList: false,
                       coffee: coffee,
                       onPressed: () => removeCoffe(coffee),
                       icon: const Icon(Icons.delete),

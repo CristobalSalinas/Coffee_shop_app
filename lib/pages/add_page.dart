@@ -49,6 +49,7 @@ class _AddPageState extends State<AddPage> {
     Coffee coffee = Coffee(
       name: widget.coffee.name,
       price: widget.coffee.price,
+      priceList: widget.coffee.priceList,
       imagePath: widget.coffee.imagePath,
       size: size,
     );
