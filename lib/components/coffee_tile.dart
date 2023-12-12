@@ -5,11 +5,12 @@ class CoffeeTile extends StatelessWidget {
   final Coffee coffee;
   final void Function()? onPressed;
   final Widget icon;
-  const CoffeeTile(
-      {super.key,
-      required this.coffee,
-      required this.onPressed,
-      required this.icon});
+  const CoffeeTile({
+    super.key,
+    required this.coffee,
+    required this.onPressed,
+    required this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {

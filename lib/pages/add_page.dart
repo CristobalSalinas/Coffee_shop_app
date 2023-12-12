@@ -45,7 +45,7 @@ class _AddPageState extends State<AddPage> {
     });
   }
 
-  void addToCard() {
+  void addToCard(BuildContext context) {
     Coffee coffee = Coffee(
       name: widget.coffee.name,
       price: widget.coffee.price,
@@ -56,6 +56,13 @@ class _AddPageState extends State<AddPage> {
     for (int i = 0; i < quantity; i++) {
       Provider.of<CoffeeShop>(context, listen: false).addItemToCart(coffee);
     }
+
+    showDialog(
+      context: context,
+      builder: (context) => const AlertDialog(
+        title: Text("Agregado correctamente"),
+      ),
+    ).then((value) => Navigator.pushNamed(context, '/shop'));
   }
 
   @override
@@ -118,7 +125,9 @@ class _AddPageState extends State<AddPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: CustomButtom("Agregar al carrito", onTap: addToCard),
+                  child: CustomButtom("Agregar al carrito", onTap: () {
+                    addToCard(context);
+                  }),
                 )
               ],
             ),
