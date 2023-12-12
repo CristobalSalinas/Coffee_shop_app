@@ -16,7 +16,7 @@ class Coffee {
     required this.size,
   });
 
-  String getCartCoffeeSize() {
+  String getCartCoffeePrice() {
     const Map<CoffeeSize, int> priceIndex = {
       CoffeeSize.small: 0,
       CoffeeSize.medium: 1,

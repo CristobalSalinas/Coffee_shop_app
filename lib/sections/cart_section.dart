@@ -1,4 +1,6 @@
-import 'package:coffee_shop_app/components/coffee_tile.dart';
+import 'package:coffee_shop_app/components/coffee_tile_test.dart';
+import 'package:coffee_shop_app/components/size_quantity_total.dart';
+import 'package:coffee_shop_app/const.dart';
 import 'package:coffee_shop_app/models/coffee.dart';
 import 'package:coffee_shop_app/models/coffee_shop.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +22,40 @@ class _CartSectionState extends State<CartSection> {
     print("Paga mierda!!");
   }
 
+  Map<String, Map> distributeCoffeeSizes(List<Coffee> coffees) {
+    Map<String, Map> coffeeList = {};
+    Map<CoffeeSize, int> coffeeSize = {
+      CoffeeSize.small: 0,
+      CoffeeSize.medium: 1,
+      CoffeeSize.large: 2,
+    };
+
+    for (var coffee in coffees) {
+      if (coffeeList[coffee.name] == null) {
+        coffeeList[coffee.name] = {
+          "name": coffee.name,
+          "size": [0, 0, 0],
+          "image": coffee.imagePath,
+        };
+      }
+      int size = coffeeSize[coffee.size]!;
+      var coffeeObj = coffeeList[coffee.name]!;
+      List<int> values = coffeeObj["size"];
+      values[size] = values[size] + 1;
+      coffeeObj["size"] = values;
+      coffeeList[coffee.name] = coffeeObj;
+    }
+
+    return coffeeList;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<CoffeeShop>(
-      builder: (context, value, child) => SafeArea(
+    return Consumer<CoffeeShop>(builder: (context, value, child) {
+      var coffeSizesList = distributeCoffeeSizes(value.userCart);
+      var coffeeListKeys = coffeSizesList.keys.toList();
+
+      return SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
@@ -37,13 +69,16 @@ class _CartSectionState extends State<CartSection> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: value.userCart.length,
+                  itemCount: coffeeListKeys.length,
                   itemBuilder: (context, index) {
-                    Coffee coffee = value.userCart[index];
-                    return CoffeeTile(
-                      showPriceList: false,
-                      coffee: coffee,
-                      onPressed: () => removeCoffe(coffee),
+                    var coffeeObject = coffeSizesList[coffeeListKeys[index]]!;
+
+                    return CoffeeTileTest(
+                      image: coffeeObject["image"].toString(),
+                      title: coffeeObject["name"].toString(),
+                      description:
+                          SizeQuantityTotal(sizeList: coffeeObject["size"]),
+                      onPressed: () {},
                       icon: const Icon(Icons.delete),
                     );
                   },
@@ -72,7 +107,7 @@ class _CartSectionState extends State<CartSection> {
             ],
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

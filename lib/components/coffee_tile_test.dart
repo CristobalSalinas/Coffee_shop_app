@@ -1,18 +1,18 @@
-import 'package:coffee_shop_app/components/price_list.dart';
-import 'package:coffee_shop_app/models/coffee.dart';
 import 'package:flutter/material.dart';
 
-class CoffeeTile extends StatelessWidget {
-  final Coffee coffee;
-  final bool showPriceList;
-  final void Function()? onPressed;
+class CoffeeTileTest extends StatelessWidget {
+  final String image;
   final Widget icon;
-  const CoffeeTile({
+  final String title;
+  final Widget description;
+  final void Function()? onPressed;
+  const CoffeeTileTest({
     super.key,
-    required this.coffee,
+    required this.image,
+    required this.title,
+    required this.description,
     required this.onPressed,
     required this.icon,
-    this.showPriceList = true,
   });
 
   @override
@@ -25,13 +25,9 @@ class CoffeeTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
       margin: const EdgeInsets.only(bottom: 10),
       child: ListTile(
-        leading: Image.asset(coffee.imagePath),
-        title: Text(coffee.name),
-        subtitle: showPriceList
-            ? PriceList(
-                priceList: coffee.priceList,
-              )
-            : Text(coffee.getCartCoffeePrice()),
+        leading: Image.asset(image),
+        title: Text(title),
+        subtitle: description,
         trailing: IconButton(
           icon: icon,
           onPressed: onPressed,

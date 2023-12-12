@@ -1,4 +1,5 @@
-import 'package:coffee_shop_app/components/coffee_tile.dart';
+import 'package:coffee_shop_app/components/coffee_tile_test.dart';
+import 'package:coffee_shop_app/components/price_list.dart';
 import 'package:coffee_shop_app/models/coffee.dart';
 import 'package:coffee_shop_app/models/coffee_shop.dart';
 import 'package:coffee_shop_app/pages/add_page.dart';
@@ -51,14 +52,24 @@ class _ShopSectionState extends State<ShopSection> {
                 child: ListView.builder(
                   itemBuilder: (context, index) {
                     Coffee eachCoffee = value.coffeShop[index];
-                    return CoffeeTile(
-                      coffee: eachCoffee,
-                      onPressed: () => goToCoffeeSelectionDetails(
-                        context,
-                        eachCoffee,
-                      ), //addToCart(eachCoffee),
+
+                    return CoffeeTileTest(
+                      image: eachCoffee.imagePath,
+                      title: eachCoffee.name,
+                      description: PriceList(priceList: eachCoffee.priceList),
+                      onPressed: () =>
+                          goToCoffeeSelectionDetails(context, eachCoffee),
                       icon: const Icon(Icons.add),
                     );
+
+                    // return CoffeeTile(
+                    //   coffee: eachCoffee,
+                    //   onPressed: () => goToCoffeeSelectionDetails(
+                    //     context,
+                    //     eachCoffee,
+                    //   ), //addToCart(eachCoffee),
+                    //   icon: const Icon(Icons.add),
+                    // );
                   },
                   itemCount: value.coffeShop.length,
                 ),
