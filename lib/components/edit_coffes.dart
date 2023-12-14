@@ -1,11 +1,15 @@
 import 'package:coffee_shop_app/components/edit_coffes_tile.dart';
+import 'package:coffee_shop_app/models/coffee_shop.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EditCoffes extends StatefulWidget {
   final List<int> coffeeList;
+  final String coffeeName;
   const EditCoffes({
     super.key,
     required this.coffeeList,
+    required this.coffeeName,
   });
 
   @override
@@ -33,6 +37,13 @@ class _EditCoffesState extends State<EditCoffes> {
         coffeeListValues[index]--;
       }
     });
+  }
+
+  void editCoffeeList(String coffeeName, List<int> coffeeList) {
+    Provider.of<CoffeeShop>(context, listen: false).editItemsFromCard(
+      coffeeName,
+      coffeeList,
+    );
   }
 
   @override
@@ -76,11 +87,12 @@ class _EditCoffesState extends State<EditCoffes> {
             children: [
               TextButton(
                 onPressed: () {},
-                child: Text("Cancelar"),
+                child: const Text("Cancelar"),
               ),
               TextButton(
-                onPressed: () {},
-                child: Text("Guardar"),
+                onPressed: () =>
+                    editCoffeeList(widget.coffeeName, coffeeListValues),
+                child: const Text("Guardar"),
               ),
             ],
           )

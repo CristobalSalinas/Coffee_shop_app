@@ -86,6 +86,7 @@ class _CartSectionState extends State<CartSection> {
                           backgroundColor: Colors.white,
                           child: EditCoffes(
                             coffeeList: coffeeObject["size"],
+                            coffeeName: coffeeObject["name"],
                           ),
                         ),
                       ),

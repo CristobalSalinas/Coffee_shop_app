@@ -49,4 +49,30 @@ class CoffeeShop extends ChangeNotifier {
     _userCart.remove(coffee);
     notifyListeners();
   }
+
+  void editItemsFromCard(String coffeeName, List<int> totalCoffeeValues) {
+    // Aca voy a contar la cantidad de cafes de los portes y por nombre,
+    List<int> cartCounter = [0, 0, 0];
+
+    for (var coffe in _userCart) {
+      if (coffe.name == coffeeName) {
+        if (coffe.size == CoffeeSize.small) {
+          cartCounter[0]++;
+        }
+
+        if (coffe.size == CoffeeSize.medium) {
+          cartCounter[1]++;
+        }
+
+        if (coffe.size == CoffeeSize.large) {
+          cartCounter[2]++;
+        }
+      }
+    }
+
+    if (cartCounter[0] != totalCoffeeValues[0]) {
+      int total = totalCoffeeValues[0] - cartCounter[0];
+      print(total);
+    }
+  }
 }
