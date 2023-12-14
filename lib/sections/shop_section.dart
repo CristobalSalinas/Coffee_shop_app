@@ -1,7 +1,7 @@
 import 'package:coffee_shop_app/components/coffee_tile_test.dart';
 import 'package:coffee_shop_app/components/price_list.dart';
-import 'package:coffee_shop_app/models/coffee.dart';
-import 'package:coffee_shop_app/models/coffee_shop.dart';
+import 'package:coffee_shop_app/models/coffee_shop_test.dart';
+import 'package:coffee_shop_app/models/coffee_test.dart';
 import 'package:coffee_shop_app/pages/add_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,18 +14,17 @@ class ShopSection extends StatefulWidget {
 }
 
 class _ShopSectionState extends State<ShopSection> {
-  void addToCart(Coffee coffee) {
-    Provider.of<CoffeeShop>(context, listen: false).addItemToCart(coffee);
+  // void addToCart(Coffee coffee) {
+  //   Provider.of<CoffeeShop>(context, listen: false).addItemToCart(coffee);
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => const AlertDialog(
+  //       title: Text("Agregado correctamente"),
+  //     ),
+  //   );
+  // }
 
-    showDialog(
-      context: context,
-      builder: (context) => const AlertDialog(
-        title: Text("Agregado correctamente"),
-      ),
-    );
-  }
-
-  void goToCoffeeSelectionDetails(BuildContext context, Coffee coffee) {
+  void goToCoffeeSelectionDetails(BuildContext context, CoffeeTest coffee) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => AddPage(coffee),
@@ -35,14 +34,14 @@ class _ShopSectionState extends State<ShopSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CoffeeShop>(
+    return Consumer<CoffeeShopTest>(
       builder: (context, value, child) => SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(25),
+          padding: EdgeInsets.all(25),
           child: Column(
             children: [
               const Text(
-                "Como te gusta tu cafe?",
+                "Como te gusta tu Cafe?",
                 style: TextStyle(fontSize: 20),
               ),
               const SizedBox(
@@ -51,27 +50,23 @@ class _ShopSectionState extends State<ShopSection> {
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (context, index) {
-                    Coffee eachCoffee = value.coffeShop[index];
+                    CoffeeTest eachCoffe = value.coffeeShop[index];
+                    List<int> coffeePriceList = [
+                      eachCoffe.smallPrice,
+                      eachCoffe.mediumPrice,
+                      eachCoffe.bigPrice,
+                    ];
 
                     return CoffeeTileTest(
-                      image: eachCoffee.imagePath,
-                      title: eachCoffee.name,
-                      description: PriceList(priceList: eachCoffee.priceList),
+                      image: eachCoffe.imagePath,
+                      title: eachCoffe.name,
+                      description: PriceList(priceList: coffeePriceList),
                       onPressed: () =>
-                          goToCoffeeSelectionDetails(context, eachCoffee),
+                          goToCoffeeSelectionDetails(context, eachCoffe),
                       icon: const Icon(Icons.add),
                     );
-
-                    // return CoffeeTile(
-                    //   coffee: eachCoffee,
-                    //   onPressed: () => goToCoffeeSelectionDetails(
-                    //     context,
-                    //     eachCoffee,
-                    //   ), //addToCart(eachCoffee),
-                    //   icon: const Icon(Icons.add),
-                    // );
                   },
-                  itemCount: value.coffeShop.length,
+                  itemCount: value.coffeeShop.length,
                 ),
               ),
             ],

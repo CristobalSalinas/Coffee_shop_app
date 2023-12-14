@@ -1,4 +1,4 @@
-import 'package:coffee_shop_app/models/coffee_shop.dart';
+import 'package:coffee_shop_app/models/coffee_shop_test.dart';
 import 'package:coffee_shop_app/pages/home_page.dart';
 import 'package:coffee_shop_app/pages/shop_page.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => CoffeeShop(),
+      create: (context) => CoffeeShopTest(),
       builder: (context, child) => MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

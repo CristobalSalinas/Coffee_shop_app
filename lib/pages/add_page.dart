@@ -4,11 +4,13 @@ import 'package:coffee_shop_app/components/size_selector.dart';
 import 'package:coffee_shop_app/const.dart';
 import 'package:coffee_shop_app/models/coffee.dart';
 import 'package:coffee_shop_app/models/coffee_shop.dart';
+import 'package:coffee_shop_app/models/coffee_shop_test.dart';
+import 'package:coffee_shop_app/models/coffee_test.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddPage extends StatefulWidget {
-  final Coffee coffee;
+  final CoffeeTest coffee;
   const AddPage(this.coffee, {super.key});
 
   @override
@@ -46,33 +48,39 @@ class _AddPageState extends State<AddPage> {
   }
 
   void addToCard(BuildContext context) {
-    Coffee coffee = Coffee(
-      name: widget.coffee.name,
-      price: widget.coffee.price,
-      priceList: widget.coffee.priceList,
-      imagePath: widget.coffee.imagePath,
-      size: size,
+    Provider.of<CoffeeShopTest>(context, listen: false).addCoffeesToCard(
+      widget.coffee,
+      size,
+      quantity,
     );
 
-    for (int i = 0; i < quantity; i++) {
-      Provider.of<CoffeeShop>(context, listen: false).addItemToCart(coffee);
-    }
+    // Coffee coffee = Coffee(
+    //   name: widget.coffee.name,
+    //   price: widget.coffee.price,
+    //   priceList: widget.coffee.priceList,
+    //   imagePath: widget.coffee.imagePath,
+    //   size: size,
+    // );
 
-    showDialog(
-      context: context,
-      builder: (context) => const AlertDialog(
-        backgroundColor: Colors.brown,
-        title: Text(
-          "Cafe agregado correctamente",
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-    ).then((value) => Navigator.pushNamed(context, '/shop'));
+    // for (int i = 0; i < quantity; i++) {
+    //   Provider.of<CoffeeShop>(context, listen: false).addItemToCart(coffee);
+    // }
+
+    // showDialog(
+    //   context: context,
+    //   builder: (context) => const AlertDialog(
+    //     backgroundColor: Colors.brown,
+    //     title: Text(
+    //       "Cafe agregado correctamente",
+    //       style: TextStyle(color: Colors.white),
+    //     ),
+    //   ),
+    // ).then((value) => Navigator.pushNamed(context, '/shop'));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CoffeeShop>(
+    return Consumer<CoffeeShopTest>(
       builder: (context, value, child) => Scaffold(
         backgroundColor: Colors.grey[350],
         appBar: AppBar(
