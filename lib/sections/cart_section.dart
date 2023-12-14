@@ -1,4 +1,5 @@
 import 'package:coffee_shop_app/components/coffee_tile_test.dart';
+import 'package:coffee_shop_app/components/edit_coffes.dart';
 import 'package:coffee_shop_app/components/size_quantity_total.dart';
 import 'package:coffee_shop_app/const.dart';
 import 'package:coffee_shop_app/models/coffee.dart';
@@ -76,10 +77,19 @@ class _CartSectionState extends State<CartSection> {
                     return CoffeeTileTest(
                       image: coffeeObject["image"].toString(),
                       title: coffeeObject["name"].toString(),
-                      description:
-                          SizeQuantityTotal(sizeList: coffeeObject["size"]),
-                      onPressed: () {},
-                      icon: const Icon(Icons.delete),
+                      description: SizeQuantityTotal(
+                        sizeList: coffeeObject["size"],
+                      ),
+                      onPressed: () => showDialog(
+                        context: context,
+                        builder: (context) => Dialog(
+                          backgroundColor: Colors.white,
+                          child: EditCoffes(
+                            coffeeList: coffeeObject["size"],
+                          ),
+                        ),
+                      ),
+                      icon: const Icon(Icons.edit),
                     );
                   },
                 ),

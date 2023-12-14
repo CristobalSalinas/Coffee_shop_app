@@ -61,7 +61,11 @@ class _AddPageState extends State<AddPage> {
     showDialog(
       context: context,
       builder: (context) => const AlertDialog(
-        title: Text("Agregado correctamente"),
+        backgroundColor: Colors.brown,
+        title: Text(
+          "Cafe agregado correctamente",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ).then((value) => Navigator.pushNamed(context, '/shop'));
   }

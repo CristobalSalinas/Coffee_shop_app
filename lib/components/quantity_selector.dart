@@ -6,7 +6,7 @@ class QuantitySelector extends StatelessWidget {
   final void Function()? addQuantity;
   final void Function()? substractQuantity;
   const QuantitySelector(this.total,
-      {super.key, required this.addQuantity, this.substractQuantity});
+      {super.key, required this.addQuantity, required this.substractQuantity});
 
   @override
   Widget build(BuildContext context) {
