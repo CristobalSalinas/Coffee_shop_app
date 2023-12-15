@@ -1,22 +1,23 @@
 import 'package:coffee_shop_app/components/edit_coffes_tile.dart';
 import 'package:coffee_shop_app/models/coffee_shop.dart';
+import 'package:coffee_shop_app/models/coffee_shop_test.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EditCoffes extends StatefulWidget {
+class EditCoffees extends StatefulWidget {
   final List<int> coffeeList;
   final String coffeeName;
-  const EditCoffes({
+  const EditCoffees({
     super.key,
     required this.coffeeList,
     required this.coffeeName,
   });
 
   @override
-  State<EditCoffes> createState() => _EditCoffesState();
+  State<EditCoffees> createState() => _EditCoffesState();
 }
 
-class _EditCoffesState extends State<EditCoffes> {
+class _EditCoffesState extends State<EditCoffees> {
   late List<int> coffeeListValues;
 
   @override
@@ -39,11 +40,9 @@ class _EditCoffesState extends State<EditCoffes> {
     });
   }
 
-  void editCoffeeList(String coffeeName, List<int> coffeeList) {
-    Provider.of<CoffeeShop>(context, listen: false).editItemsFromCard(
-      coffeeName,
-      coffeeList,
-    );
+  void editCoffeeList() {
+    Provider.of<CoffeeShopTest>(context, listen: false)
+        .editCoffeesQuantities(widget.coffeeName, coffeeListValues);
   }
 
   @override
@@ -58,6 +57,13 @@ class _EditCoffesState extends State<EditCoffes> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          Text(
+            "Editando Cafe ${widget.coffeeName}",
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
           EditCoffesTile(
             title: "P",
             quantity: widget.coffeeList[0],
@@ -90,8 +96,7 @@ class _EditCoffesState extends State<EditCoffes> {
                 child: const Text("Cancelar"),
               ),
               TextButton(
-                onPressed: () =>
-                    editCoffeeList(widget.coffeeName, coffeeListValues),
+                onPressed: () => editCoffeeList(),
                 child: const Text("Guardar"),
               ),
             ],

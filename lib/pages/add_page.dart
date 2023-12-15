@@ -54,28 +54,16 @@ class _AddPageState extends State<AddPage> {
       quantity,
     );
 
-    // Coffee coffee = Coffee(
-    //   name: widget.coffee.name,
-    //   price: widget.coffee.price,
-    //   priceList: widget.coffee.priceList,
-    //   imagePath: widget.coffee.imagePath,
-    //   size: size,
-    // );
-
-    // for (int i = 0; i < quantity; i++) {
-    //   Provider.of<CoffeeShop>(context, listen: false).addItemToCart(coffee);
-    // }
-
-    // showDialog(
-    //   context: context,
-    //   builder: (context) => const AlertDialog(
-    //     backgroundColor: Colors.brown,
-    //     title: Text(
-    //       "Cafe agregado correctamente",
-    //       style: TextStyle(color: Colors.white),
-    //     ),
-    //   ),
-    // ).then((value) => Navigator.pushNamed(context, '/shop'));
+    showDialog(
+      context: context,
+      builder: (context) => const AlertDialog(
+        backgroundColor: Colors.brown,
+        title: Text(
+          "Cafe agregado correctamente",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    ).then((value) => Navigator.pushNamed(context, '/shop'));
   }
 
   @override

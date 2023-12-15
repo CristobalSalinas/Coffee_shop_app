@@ -1,9 +1,9 @@
 import 'package:coffee_shop_app/components/coffee_tile_test.dart';
 import 'package:coffee_shop_app/components/edit_coffes.dart';
 import 'package:coffee_shop_app/components/size_quantity_total.dart';
-import 'package:coffee_shop_app/const.dart';
-import 'package:coffee_shop_app/models/coffee.dart';
-import 'package:coffee_shop_app/models/coffee_shop.dart';
+import 'package:coffee_shop_app/models/coffee_shop_item.dart';
+import 'package:coffee_shop_app/models/coffee_shop_test.dart';
+import 'package:coffee_shop_app/models/coffee_test.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,47 +15,9 @@ class CartSection extends StatefulWidget {
 }
 
 class _CartSectionState extends State<CartSection> {
-  void removeCoffe(Coffee coffee) {
-    Provider.of<CoffeeShop>(context, listen: false).remoteItemFromCart(coffee);
-  }
-
-  void payCoffees() {
-    print("Paga mierda!!");
-  }
-
-  Map<String, Map> distributeCoffeeSizes(List<Coffee> coffees) {
-    Map<String, Map> coffeeList = {};
-    Map<CoffeeSize, int> coffeeSize = {
-      CoffeeSize.small: 0,
-      CoffeeSize.medium: 1,
-      CoffeeSize.large: 2,
-    };
-
-    for (var coffee in coffees) {
-      if (coffeeList[coffee.name] == null) {
-        coffeeList[coffee.name] = {
-          "name": coffee.name,
-          "size": [0, 0, 0],
-          "image": coffee.imagePath,
-        };
-      }
-      int size = coffeeSize[coffee.size]!;
-      var coffeeObj = coffeeList[coffee.name]!;
-      List<int> values = coffeeObj["size"];
-      values[size] = values[size] + 1;
-      coffeeObj["size"] = values;
-      coffeeList[coffee.name] = coffeeObj;
-    }
-
-    return coffeeList;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Consumer<CoffeeShop>(builder: (context, value, child) {
-      var coffeSizesList = distributeCoffeeSizes(value.userCart);
-      var coffeeListKeys = coffeSizesList.keys.toList();
-
+    return Consumer<CoffeeShopTest>(builder: (context, value, child) {
       return SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -70,23 +32,31 @@ class _CartSectionState extends State<CartSection> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: coffeeListKeys.length,
+                  itemCount: value.userCart.length,
                   itemBuilder: (context, index) {
-                    var coffeeObject = coffeSizesList[coffeeListKeys[index]]!;
-
+                    CoffeShopItem shopItem = value.userCart[index];
+                    CoffeeTest eachCoffee = shopItem.coffee;
+                    int smallTotal = shopItem.smallTotal;
+                    int mediumTotal = shopItem.mediumTotal;
+                    int largeTotal = shopItem.largeTotal;
+                    List<int> coffeeTotals = [
+                      smallTotal,
+                      mediumTotal,
+                      largeTotal
+                    ];
                     return CoffeeTileTest(
-                      image: coffeeObject["image"].toString(),
-                      title: coffeeObject["name"].toString(),
+                      image: eachCoffee.imagePath,
+                      title: eachCoffee.name,
                       description: SizeQuantityTotal(
-                        sizeList: coffeeObject["size"],
+                        sizeList: [smallTotal, mediumTotal, largeTotal],
                       ),
                       onPressed: () => showDialog(
                         context: context,
                         builder: (context) => Dialog(
                           backgroundColor: Colors.white,
-                          child: EditCoffes(
-                            coffeeList: coffeeObject["size"],
-                            coffeeName: coffeeObject["name"],
+                          child: EditCoffees(
+                            coffeeList: coffeeTotals,
+                            coffeeName: eachCoffee.name,
                           ),
                         ),
                       ),
@@ -96,9 +66,9 @@ class _CartSectionState extends State<CartSection> {
                 ),
               ),
               GestureDetector(
-                onTap: payCoffees,
+                onTap: () {},
                 child: Container(
-                  padding: EdgeInsets.all(25),
+                  padding: const EdgeInsets.all(25),
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),

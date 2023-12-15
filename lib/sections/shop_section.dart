@@ -61,8 +61,10 @@ class _ShopSectionState extends State<ShopSection> {
                       image: eachCoffe.imagePath,
                       title: eachCoffe.name,
                       description: PriceList(priceList: coffeePriceList),
-                      onPressed: () =>
-                          goToCoffeeSelectionDetails(context, eachCoffe),
+                      onPressed: () => goToCoffeeSelectionDetails(
+                        context,
+                        eachCoffe,
+                      ),
                       icon: const Icon(Icons.add),
                     );
                   },
