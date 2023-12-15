@@ -1,5 +1,4 @@
 import 'package:coffee_shop_app/components/edit_coffes_tile.dart';
-import 'package:coffee_shop_app/models/coffee_shop.dart';
 import 'package:coffee_shop_app/models/coffee_shop_test.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,10 +6,12 @@ import 'package:provider/provider.dart';
 class EditCoffees extends StatefulWidget {
   final List<int> coffeeList;
   final String coffeeName;
+  final void Function()? onActions;
   const EditCoffees({
     super.key,
     required this.coffeeList,
     required this.coffeeName,
+    required this.onActions,
   });
 
   @override
@@ -41,8 +42,11 @@ class _EditCoffesState extends State<EditCoffees> {
   }
 
   void editCoffeeList() {
-    Provider.of<CoffeeShopTest>(context, listen: false)
-        .editCoffeesQuantities(widget.coffeeName, coffeeListValues);
+    Provider.of<CoffeeShopTest>(context, listen: false).editCoffeesQuantities(
+      widget.coffeeName,
+      coffeeListValues,
+    );
+    widget.onActions!();
   }
 
   @override
@@ -58,7 +62,7 @@ class _EditCoffesState extends State<EditCoffees> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            "Editando Cafe ${widget.coffeeName}",
+            "Editando ${widget.coffeeName}",
             style: const TextStyle(fontSize: 16),
           ),
           const SizedBox(

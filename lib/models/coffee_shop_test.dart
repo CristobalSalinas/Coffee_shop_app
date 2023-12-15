@@ -45,10 +45,6 @@ class CoffeeShopTest extends ChangeNotifier {
       (element) => element.coffee.name == coffee.name,
     );
 
-    print(coffee);
-    print(size);
-    print(total);
-
     if (coffeFound == null) {
       CoffeShopItem newCoffee = CoffeShopItem(
         coffee: coffee,
@@ -79,13 +75,22 @@ class CoffeeShopTest extends ChangeNotifier {
   }
 
   void editCoffeesQuantities(String coffeeName, List<int> quantities) {
-    for (var i = 0; i < userCart.length; i++) {
-      if (userCart[i].coffee.name == coffeeName) {
-        userCart[i].smallTotal = quantities[0];
-        userCart[i].mediumTotal = quantities[1];
-        userCart[i].largeTotal = quantities[2];
+    // En caso de que la lista de cantidades de cafes sean todas 0
+    // Voy a eliminar el elemento de el cafe de el carrito para que no aparescan
+    // las cantidades de cafes en 0
+
+    if (quantities[0] == 0 && quantities[1] == 0 && quantities[2] == 0) {
+      _userCart.removeWhere((element) => element.coffee.name == coffeeName);
+    } else {
+      for (var i = 0; i < userCart.length; i++) {
+        if (userCart[i].coffee.name == coffeeName) {
+          userCart[i].smallTotal = quantities[0];
+          userCart[i].mediumTotal = quantities[1];
+          userCart[i].largeTotal = quantities[2];
+        }
       }
     }
+
     notifyListeners();
   }
 }

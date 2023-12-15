@@ -15,6 +15,10 @@ class CartSection extends StatefulWidget {
 }
 
 class _CartSectionState extends State<CartSection> {
+  void closeEditDialog(BuildContext context) {
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<CoffeeShopTest>(builder: (context, value, child) {
@@ -55,9 +59,9 @@ class _CartSectionState extends State<CartSection> {
                         builder: (context) => Dialog(
                           backgroundColor: Colors.white,
                           child: EditCoffees(
-                            coffeeList: coffeeTotals,
-                            coffeeName: eachCoffee.name,
-                          ),
+                              coffeeList: coffeeTotals,
+                              coffeeName: eachCoffee.name,
+                              onActions: () => closeEditDialog(context)),
                         ),
                       ),
                       icon: const Icon(Icons.edit),
