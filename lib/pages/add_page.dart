@@ -2,8 +2,6 @@ import 'package:coffee_shop_app/components/custom_button.dart';
 import 'package:coffee_shop_app/components/quantity_selector.dart';
 import 'package:coffee_shop_app/components/size_selector.dart';
 import 'package:coffee_shop_app/const.dart';
-import 'package:coffee_shop_app/models/coffee.dart';
-import 'package:coffee_shop_app/models/coffee_shop.dart';
 import 'package:coffee_shop_app/models/coffee_shop_test.dart';
 import 'package:coffee_shop_app/models/coffee_test.dart';
 import 'package:flutter/material.dart';
@@ -71,67 +69,75 @@ class _AddPageState extends State<AddPage> {
     return Consumer<CoffeeShopTest>(
       builder: (context, value, child) => Scaffold(
         backgroundColor: Colors.grey[350],
-        appBar: AppBar(
-          leading: GestureDetector(
-            child: const Icon(Icons.arrow_back_ios),
-            onTap: () => goBackToCart(context),
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-        ),
         body: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  widget.coffee.imagePath,
-                  height: 200,
-                  width: 200,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
                 ),
-                const SizedBox(
-                  height: 20,
+                child: GestureDetector(
+                  child: const Icon(Icons.arrow_back_ios),
+                  onTap: () => goBackToCart(context),
                 ),
-                Text(
-                  "C A N T I D A D",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.grey[600],
+              ),
+              Expanded(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        widget.coffee.imagePath,
+                        height: 200,
+                        width: 200,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "C A N T I D A D",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                      QuantitySelector(
+                        quantity,
+                        addQuantity: addQuantity,
+                        substractQuantity: substractQuantity,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "T A M A Ñ O",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizeSelector(
+                        size: size,
+                        changeCoffeeSize: changeCoffeeSize,
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: CustomButtom("Agregar al carrito", onTap: () {
+                          addToCard(context);
+                        }),
+                      )
+                    ],
                   ),
                 ),
-                QuantitySelector(
-                  quantity,
-                  addQuantity: addQuantity,
-                  substractQuantity: substractQuantity,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "T A M A Ñ O",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.grey[600],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                SizeSelector(
-                  size: size,
-                  changeCoffeeSize: changeCoffeeSize,
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: CustomButtom("Agregar al carrito", onTap: () {
-                    addToCard(context);
-                  }),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),

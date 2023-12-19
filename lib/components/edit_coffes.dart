@@ -41,6 +41,10 @@ class _EditCoffesState extends State<EditCoffees> {
     });
   }
 
+  void cancelAction() {
+    widget.onActions!();
+  }
+
   void editCoffeeList() {
     Provider.of<CoffeeShopTest>(context, listen: false).editCoffeesQuantities(
       widget.coffeeName,
@@ -96,7 +100,7 @@ class _EditCoffesState extends State<EditCoffees> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: cancelAction,
                 child: const Text("Cancelar"),
               ),
               TextButton(

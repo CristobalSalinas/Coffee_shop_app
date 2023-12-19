@@ -4,6 +4,7 @@ import 'package:coffee_shop_app/components/size_quantity_total.dart';
 import 'package:coffee_shop_app/models/coffee_shop_item.dart';
 import 'package:coffee_shop_app/models/coffee_shop_test.dart';
 import 'package:coffee_shop_app/models/coffee_test.dart';
+import 'package:coffee_shop_app/utils/price_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,8 +37,18 @@ class _CartSectionState extends State<CartSection> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: value.userCart.length,
+                  itemCount: value.userCart.isEmpty ? 1 : value.userCart.length,
                   itemBuilder: (context, index) {
+                    if (value.userCart.isEmpty) {
+                      return Center(
+                        child: Text(
+                          "El carrito esta vacio, seleccione items desde la tienda",
+                          style:
+                              TextStyle(fontSize: 20, color: Colors.grey[600]),
+                        ),
+                      );
+                    }
+
                     CoffeShopItem shopItem = value.userCart[index];
                     CoffeeTest eachCoffee = shopItem.coffee;
                     int smallTotal = shopItem.smallTotal;
@@ -48,6 +59,7 @@ class _CartSectionState extends State<CartSection> {
                       mediumTotal,
                       largeTotal
                     ];
+
                     return CoffeeTileTest(
                       image: eachCoffee.imagePath,
                       title: eachCoffee.name,
@@ -78,10 +90,10 @@ class _CartSectionState extends State<CartSection> {
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.brown,
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
-                      "Pagar",
-                      style: TextStyle(
+                      "Pagar ${priceFormatter(value.coffeesTotalPrice.toString())}",
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                       ),

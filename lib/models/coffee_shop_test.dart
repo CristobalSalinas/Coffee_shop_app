@@ -36,9 +36,11 @@ class CoffeeShopTest extends ChangeNotifier {
     ),
   ];
   final List<CoffeShopItem> _userCart = [];
+  int _totalPrice = 0;
 
   List<CoffeeTest> get coffeeShop => _shop;
   List<CoffeShopItem> get userCart => _userCart;
+  int get coffeesTotalPrice => _totalPrice;
 
   void addCoffeesToCard(CoffeeTest coffee, CoffeeSize size, int total) {
     CoffeShopItem? coffeFound = _userCart.firstWhereOrNull(
@@ -71,6 +73,7 @@ class CoffeeShopTest extends ChangeNotifier {
       });
     }
 
+    getCoffeesTotal();
     notifyListeners();
   }
 
@@ -91,6 +94,33 @@ class CoffeeShopTest extends ChangeNotifier {
       }
     }
 
+    getCoffeesTotal();
     notifyListeners();
+  }
+
+  void getCoffeesTotal() {
+    int total = 0;
+
+    for (var i = 0; i < userCart.length; i++) {
+      int smallTotal = userCart[i].smallTotal;
+      int mediumTotal = userCart[i].mediumTotal;
+      int largeTotal = userCart[i].largeTotal;
+
+      print("smallTotal $smallTotal");
+      print("mediumTotal $mediumTotal");
+      print("largeTotal $largeTotal");
+
+      String coffeeName = userCart[i].coffee.name;
+
+      CoffeeTest? coffeFound =
+          _shop.firstWhereOrNull((element) => element.name == coffeeName);
+
+      total = total +
+          ((coffeFound!.bigPrice * largeTotal) +
+              (coffeFound.mediumPrice * mediumTotal) +
+              (coffeFound.smallPrice * smallTotal));
+    }
+
+    _totalPrice = total;
   }
 }
