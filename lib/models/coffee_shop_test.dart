@@ -35,12 +35,16 @@ class CoffeeShopTest extends ChangeNotifier {
       bigPrice: 3500,
     ),
   ];
-  final List<CoffeShopItem> _userCart = [];
+  List<CoffeShopItem> _userCart = [];
   int _totalPrice = 0;
 
   List<CoffeeTest> get coffeeShop => _shop;
   List<CoffeShopItem> get userCart => _userCart;
   int get coffeesTotalPrice => _totalPrice;
+
+  set setUserCart(List<CoffeShopItem> value) {
+    _userCart = value;
+  }
 
   void addCoffeesToCard(CoffeeTest coffee, CoffeeSize size, int total) {
     CoffeShopItem? coffeFound = _userCart.firstWhereOrNull(
@@ -106,10 +110,6 @@ class CoffeeShopTest extends ChangeNotifier {
       int mediumTotal = userCart[i].mediumTotal;
       int largeTotal = userCart[i].largeTotal;
 
-      print("smallTotal $smallTotal");
-      print("mediumTotal $mediumTotal");
-      print("largeTotal $largeTotal");
-
       String coffeeName = userCart[i].coffee.name;
 
       CoffeeTest? coffeFound =
@@ -122,5 +122,11 @@ class CoffeeShopTest extends ChangeNotifier {
     }
 
     _totalPrice = total;
+  }
+
+  void payCoffees() {
+    setUserCart = [];
+    getCoffeesTotal();
+    notifyListeners();
   }
 }

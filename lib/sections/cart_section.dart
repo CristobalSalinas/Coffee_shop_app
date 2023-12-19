@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:coffee_shop_app/components/coffee_tile_test.dart';
 import 'package:coffee_shop_app/components/edit_coffes.dart';
 import 'package:coffee_shop_app/components/size_quantity_total.dart';
@@ -16,8 +18,37 @@ class CartSection extends StatefulWidget {
 }
 
 class _CartSectionState extends State<CartSection> {
+  bool isLoadingPayment = false;
+
   void closeEditDialog(BuildContext context) {
     Navigator.pop(context);
+  }
+
+  void payTotalCoffees() {
+    int totalCoffees =
+        Provider.of<CoffeeShopTest>(context, listen: false).userCart.length;
+
+    if (totalCoffees > 0) {
+      setState(() {
+        isLoadingPayment = true;
+      });
+      Timer(const Duration(seconds: 3), () {
+        setState(() {
+          isLoadingPayment = false;
+          Provider.of<CoffeeShopTest>(context, listen: false).payCoffees();
+        });
+        showDialog(
+          context: context,
+          builder: (context) => const AlertDialog(
+            backgroundColor: Colors.brown,
+            title: Text(
+              "Gracias por su compra",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+      });
+    }
   }
 
   @override
@@ -82,7 +113,7 @@ class _CartSectionState extends State<CartSection> {
                 ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: payTotalCoffees,
                 child: Container(
                   padding: const EdgeInsets.all(25),
                   width: double.infinity,
@@ -91,13 +122,21 @@ class _CartSectionState extends State<CartSection> {
                     color: Colors.brown,
                   ),
                   child: Center(
-                    child: Text(
-                      "Pagar ${priceFormatter(value.coffeesTotalPrice.toString())}",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    ),
+                    child: isLoadingPayment
+                        ? const SizedBox(
+                            height: 29,
+                            width: 29,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          )
+                        : Text(
+                            "Pagar ${priceFormatter(value.coffeesTotalPrice.toString())}",
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
                   ),
                 ),
               )
